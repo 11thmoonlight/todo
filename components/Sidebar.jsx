@@ -22,7 +22,6 @@ import ListEditForm from "./ListEditForm";
 import TagEditForm from "./TagEditForm";
 import { TaskFilterContext } from "@/app/context/TaskFilterContext";
 import { RiCloseLargeLine } from "react-icons/ri";
-import { SuffixPathnameNormalizer } from "next/dist/server/future/normalizers/request/suffix";
 
 function Sidebar() {
   const [showListForm, setShowListForm] = useState(false);
@@ -185,13 +184,17 @@ function Sidebar() {
       <div className="flex justify-between items-center mb-3">
         <span className="text-lg font-semibold tracking-wide">Menu</span>
 
-        <button onClick={() => setOpenSidebar(false)}>
-          <GrMenu />
-        </button>
+        {openSidebar && (
+          <button className="sm:hidden" onClick={() => setOpenSidebar(false)}>
+            <GrMenu />
+          </button>
+        )}
 
-        <button onClick={() => setOpenSidebar(true)}>
-          <RiCloseLargeLine />
-        </button>
+        {!openSidebar && (
+          <button className="sm:hidden" onClick={() => setOpenSidebar(true)}>
+            <RiCloseLargeLine />
+          </button>
+        )}
       </div>
 
       <SearchForm />

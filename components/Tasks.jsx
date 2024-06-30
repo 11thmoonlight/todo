@@ -48,7 +48,7 @@ function Tasks() {
 
         setTasks(tasksWithDetails);
         setTotalItems(data.length);
-        console.log(data.totalItems);
+        console.log(totalItems);
       } catch (error) {
         console.log(error);
       } finally {

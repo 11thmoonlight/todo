@@ -14,7 +14,9 @@ function SearchForm() {
 
     const query = `?task=${task}`;
 
-    router.push(`/tasks/search-results${query}`);
+    if (task !== "") {
+      router.push(`/tasks/search-results${query}`);
+    }
     console.log(e.target.value);
   };
 

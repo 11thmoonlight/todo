@@ -19,7 +19,7 @@ function Layout({ children }) {
       <html lang="en">
         <body className="pt-3 px-3 bg-stone-50">
           <TaskFilterProvider>
-            <div className="flex gap-4">
+            <div className="grig grid-cols-2 gap-4">
               <Sidebar />
               <main>
                 <AuthProvider>{children}</AuthProvider>

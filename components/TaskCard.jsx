@@ -62,8 +62,29 @@ function TaskCard({ task }) {
   const handleStatusChange = async (taskId) => {
     try {
       const task = tasks.find((task) => task._id === taskId);
-      const newStatus = task.status;
-    } catch (error) {}
+      const newStatus = !task.status;
+
+      const res = await fetch(`/api/tasks/${taskId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (res.ok) {
+        const updatedTasks = tasks.map((task) =>
+          task._id === taskId ? { ...task, status: newStatus } : task
+        );
+
+        console.log(updatedTasks);
+        setTasks(updatedTasks);
+        toast.success("Task status updated");
+      } else {
+        toast.error("Failed to update status");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update task status");
+    }
   };
 
   return (
@@ -115,7 +136,7 @@ function TaskCard({ task }) {
         <button onClick={() => handleEditClick(task._id)}>
           <GrFormEdit />
         </button>
-        <button>
+        <button onClick={() => handleStatusChange(task._id)}>
           <IoCheckmarkDoneCircleOutline />
         </button>
       </div>

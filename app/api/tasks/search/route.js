@@ -7,7 +7,7 @@ export const GET = async (request, res) => {
   try {
     await connectDB();
 
-    const { searchParams } = new URL(
+    let { searchParams } = new URL(
       request.url,
       `http://${request.headers.host}`
     );
@@ -28,14 +28,7 @@ export const GET = async (request, res) => {
     }
 
     let query = {
-      $or: [
-        { title: searchPattern },
-        { description: searchPattern },
-        { due_date: searchPattern },
-        { priority: searchPattern },
-        { list: searchPattern },
-        { tag: searchPattern },
-      ],
+      $or: [{ title: searchPattern }, { description: searchPattern }],
     };
 
     const tasks = await Task.find(query);

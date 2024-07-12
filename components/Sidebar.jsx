@@ -9,6 +9,8 @@ import { MdAdd } from "react-icons/md";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { IoChevronDown } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
+import { TaskFilterContext } from "@/app/context/TaskFilterContext";
+import { RiCloseLargeLine } from "react-icons/ri";
 
 import styles from "../styles/scrollbar.module.css";
 
@@ -20,8 +22,7 @@ import TagForm from "./TagForm";
 import { toast } from "react-toastify";
 import ListEditForm from "./ListEditForm";
 import TagEditForm from "./TagEditForm";
-import { TaskFilterContext } from "@/app/context/TaskFilterContext";
-import { RiCloseLargeLine } from "react-icons/ri";
+import { fetchLists, fetchTags, fetchTasks } from "@/utils/requests";
 
 function Sidebar() {
   const [showListForm, setShowListForm] = useState(false);
@@ -36,64 +37,47 @@ function Sidebar() {
   const [tags, setTags] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const { setFilteredTasks } = useContext(TaskFilterContext);
 
   useEffect(() => {
-    const fetchLists = async () => {
+    const fetchAllLists = async () => {
       try {
-        const res = await fetch(`/api/lists`);
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const data = await res.json();
+        const data = await fetchLists();
         setLists(data);
         console.log("lists", data);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchLists();
+    fetchAllLists();
   }, []);
 
   useEffect(() => {
-    const fetchTags = async () => {
+    const fetchAllTags = async () => {
       try {
-        const res = await fetch(`/api/tags`);
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const data = await res.json();
+        const data = await fetchTags();
         setTags(data);
         console.log("tags", data);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchTags();
+    fetchAllTags();
   }, []);
 
   useEffect(() => {
-    const fetchTasks = async () => {
+    const fetchAllTasks = async () => {
       try {
-        const res = await fetch(`/api/tasks`);
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const data = await res.json();
+        const data = await fetchTasks();
         setTasks(data);
         console.log("tasks", data);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchTasks();
+    fetchAllTasks();
   }, []);
 
   const handleFilterByList = (listId) => {
@@ -177,6 +161,10 @@ function Sidebar() {
     setShowListEditForm(!showListEditForm);
   };
 
+  const handleItemClick = (item) => {
+    setSelectedTagId(item);
+  };
+
   return (
     <div
       className={`bg-stone-200 w-64 p-3 rounded-lg h-screen divide-y-2 flex flex-col gap-4 overflow-y-auto ${styles.scrollbar}`}
@@ -202,7 +190,12 @@ function Sidebar() {
       <ul className="flex flex-col gap-2">
         <span className="text-xs font-bold">TASKS</span>
 
-        <li className="flex items-center justify-between">
+        <li
+          className={`flex items-center justify-between hover:text-fuchsia-700 ${
+            selectedItem === "upcoming" ? "text-fuchsia-700" : ""
+          }`}
+          onClick={() => handleItemClick("upcoming")}
+        >
           <button
             onClick={() => handleFilterUpcoming()}
             className="flex items-center justify-start gap-2"
@@ -215,7 +208,7 @@ function Sidebar() {
           </span>
         </li>
 
-        <li className="flex items-center justify-between">
+        <li className="flex items-center justify-between hover:text-fuchsia-700">
           <button
             onClick={() => handleFilterDone()}
             className="flex items-center justify-start gap-2"

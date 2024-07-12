@@ -5,6 +5,7 @@ import Spinner from "./Spinner";
 import Pagination from "./Pagination";
 import AddNew from "./AddNew";
 import { TaskFilterContext } from "@/app/context/TaskFilterContext";
+import { toast } from "react-toastify";
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
@@ -88,6 +89,34 @@ function Tasks() {
     setPage(newPage);
   };
 
+  const handleStatusChange = async (taskId) => {
+    try {
+      const task = tasks.find((task) => task._id === taskId);
+      const newStatus = !task.status;
+
+      const res = await fetch(`/api/tasks/${taskId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (res.ok) {
+        const updatedTasks = tasks.map((task) =>
+          task._id === taskId ? { ...task, status: newStatus } : task
+        );
+
+        console.log(updatedTasks);
+        setTasks(updatedTasks);
+        toast.success("Task status updated");
+      } else {
+        toast.error("Failed to update status");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update task status");
+    }
+  };
+
   const displayedTasks = filteredTasks;
 
   return loading ? (
@@ -98,10 +127,14 @@ function Tasks() {
         {displayedTasks.length === 0 ? (
           <p>No tasks found</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
             <AddNew />
             {displayedTasks.map((task) => (
-              <TaskCard key={task._id} task={task} />
+              <TaskCard
+                key={task._id}
+                task={task}
+                handleStatusChange={handleStatusChange}
+              />
             ))}
           </div>
         )}

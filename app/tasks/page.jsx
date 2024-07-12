@@ -2,7 +2,7 @@ import Tasks from "@/components/Tasks";
 
 async function TasksPage() {
   return (
-    <section className="">
+    <section>
       <Tasks />
     </section>
   );

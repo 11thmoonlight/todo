@@ -102,7 +102,26 @@ export const PUT = async (request, { params }) => {
     const { id } = params;
     const { userId } = sessionUser;
 
-    const formData = await request.formData();
+    const contentType = request.headers.get("Content-Type");
+    let taskData;
+
+    if (contentType.includes("application/json")) {
+      taskData = await request.json();
+    } else if (contentType.includes("multipart/form-data")) {
+      const formData = await request.formData();
+      taskData = {
+        user: userId,
+        title: formData.get("title"),
+        description: formData.get("description"),
+        due_date: formData.get("due_date"),
+        status: formData.get("status"),
+        priority: formData.get("priority"),
+        list: formData.get("list"),
+        tag: formData.get("tag"),
+      };
+    } else {
+      return new Response("Unsupported Content Type", { status: 400 });
+    }
 
     const exsitingTask = await Task.findById(id);
 
@@ -111,19 +130,8 @@ export const PUT = async (request, { params }) => {
     }
 
     if (exsitingTask.user.toString() !== userId) {
-      return new Response("Unauthorizes", { status: 401 });
+      return new Response("Unauthorized", { status: 401 });
     }
-
-    const taskData = {
-      user: userId,
-      title: formData.get("title"),
-      description: formData.get("description"),
-      due_date: formData.get("due_date"),
-      status: formData.get("status"),
-      priority: formData.get("priority"),
-      list: formData.get("list"),
-      tag: formData.get("tag"),
-    };
 
     const updateTask = await Task.findByIdAndUpdate(id, taskData, {
       new: true,
@@ -131,6 +139,6 @@ export const PUT = async (request, { params }) => {
 
     return new Response(JSON.stringify(updateTask), { status: 200 });
   } catch (error) {
-    return new Response("Failed to add task", { status: 500 });
+    return new Response("Failed to update task", { status: 500 });
   }
 };

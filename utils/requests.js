@@ -2,7 +2,7 @@ const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
 
 // Fetch sigle list
 
-async function fetchLists(id) {
+async function fetchList(id) {
   try {
     if (!apiDomain) {
       return null;
@@ -23,9 +23,34 @@ async function fetchLists(id) {
   }
 }
 
+// Fetch all lists
+
+async function fetchLists() {
+  try {
+    if (!apiDomain) {
+      return [];
+    }
+
+    const res = await fetch(`${apiDomain}/lists`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    console.log(res.status);
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
 // Fetch single tag
 
-async function fetchTags(id) {
+async function fetchTag(id) {
   try {
     if (!apiDomain) {
       return null;
@@ -46,7 +71,34 @@ async function fetchTags(id) {
   }
 }
 
-async function fetchTasks(id) {
+// Fetch all tags
+
+async function fetchTags() {
+  try {
+    if (!apiDomain) {
+      return [];
+    }
+
+    const res = await fetch(`${apiDomain}/tags`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    console.log(res.status);
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
+// Fetch single task
+
+async function fetchTask(id) {
   try {
     if (!apiDomain) {
       return null;
@@ -67,6 +119,31 @@ async function fetchTasks(id) {
   }
 }
 
-export { fetchLists, fetchTags, fetchTasks };
+// Fetch all tasks
+
+async function fetchTasks() {
+  try {
+    if (!apiDomain) {
+      return [];
+    }
+
+    const res = await fetch(`${apiDomain}/tasks`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    console.log(res.status);
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
+export { fetchList, fetchLists, fetchTag, fetchTags, fetchTask, fetchTasks };
 
 // Fetch single tag

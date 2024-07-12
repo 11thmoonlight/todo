@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useParams, useRouter } from "next/navigation";
-import { fetchTasks } from "@/utils/requests";
+import { fetchTask } from "@/utils/requests";
 import { RiCloseLargeLine } from "react-icons/ri";
 
 function TaskEditForm({ showTaskEditForm, setShowTaskEditForm, id }) {
@@ -29,7 +29,7 @@ function TaskEditForm({ showTaskEditForm, setShowTaskEditForm, id }) {
     // Fetch list data for form
     const fetchTaskData = async () => {
       try {
-        const taskData = await fetchTasks(id);
+        const taskData = await fetchTask(id);
 
         setFields(taskData);
       } catch (error) {

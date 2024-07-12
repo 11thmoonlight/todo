@@ -8,7 +8,7 @@ import TaskEditForm from "./TaskEditForm";
 import { toast } from "react-toastify";
 import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 
-function TaskCard({ task }) {
+function TaskCard({ task, handleStatusChange }) {
   const [showTaskEditForm, setShowTaskEditForm] = useState(false);
   const [showDeleteTaskForm, setShowDeleteTaskForm] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
@@ -59,34 +59,6 @@ function TaskCard({ task }) {
     }
   };
 
-  const handleStatusChange = async (taskId) => {
-    try {
-      const task = tasks.find((task) => task._id === taskId);
-      const newStatus = !task.status;
-
-      const res = await fetch(`/api/tasks/${taskId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      if (res.ok) {
-        const updatedTasks = tasks.map((task) =>
-          task._id === taskId ? { ...task, status: newStatus } : task
-        );
-
-        console.log(updatedTasks);
-        setTasks(updatedTasks);
-        toast.success("Task status updated");
-      } else {
-        toast.error("Failed to update status");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to update task status");
-    }
-  };
-
   return (
     <div
       style={{
@@ -94,7 +66,7 @@ function TaskCard({ task }) {
         borderBottomColor: task.listColor,
         borderBottomWidth: "10px",
       }}
-      className="rounded-lg shadow-md h-72 w-72 pt-4 pb-1 px-4 sm:px-6 grid grid-cols-1 divide-y"
+      className="rounded-lg shadow-md h-72 w-full pt-4 pb-1 px-4 sm:px-6 grid grid-cols-1 divide-y"
     >
       <h2 className="text-lg sm:text-xl font-semibold mb-3 text-center">
         {task.title}

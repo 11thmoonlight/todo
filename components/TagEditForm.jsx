@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { RiCloseLargeLine } from "react-icons/ri";
-import { fetchTags } from "@/utils/requests";
+import { fetchTag } from "@/utils/requests";
 import { useParams, useRouter } from "next/navigation";
 
 function TagEditForm({ setShowTagEditForm, showTagEditForm, id }) {
@@ -20,7 +20,7 @@ function TagEditForm({ setShowTagEditForm, showTagEditForm, id }) {
 
     const fetchTagData = async () => {
       try {
-        const tagData = await fetchTags(id);
+        const tagData = await fetchTag(id);
 
         console.log("tagEdit", tagData);
         setFields(tagData);

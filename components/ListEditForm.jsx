@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { RiCloseLargeLine } from "react-icons/ri";
 import { useParams, useRouter } from "next/navigation";
-import { fetchLists } from "@/utils/requests";
+import { fetchList } from "@/utils/requests";
 
 function ListEditForm({ showListEditForm, setShowListEditForm, id }) {
   const router = useRouter();
@@ -23,7 +23,7 @@ function ListEditForm({ showListEditForm, setShowListEditForm, id }) {
     // Fetch list data for form
     const fetchListData = async () => {
       try {
-        const listData = await fetchLists(id);
+        const listData = await fetchList(id);
 
         setFields(listData);
       } catch (error) {

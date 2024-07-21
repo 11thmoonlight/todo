@@ -66,38 +66,32 @@ function TaskCard({ task, handleStatusChange }) {
         borderBottomColor: task.listColor,
         borderBottomWidth: "10px",
       }}
-      className="rounded-lg shadow-md h-72 w-full pt-4 pb-1 px-4 sm:px-6 grid grid-cols-1 divide-y"
+      className="rounded-lg shadow-md h-72 min-w-[16rem] max-w-full pt-4 pb-1 px-4 sm:px-6 grid grid-cols-1 divide-y"
     >
-      <h2 className="text-lg sm:text-xl font-semibold mb-3 text-center">
-        {task.title}
-      </h2>
+      <h2 className="text-lg font-semibold mb-3 text-center">{task.title}</h2>
       <div className="flex items-center justify-between">
-        <p className="text-xs sm:text-sm font-semibold tracking-wider">
-          DESCRIPTION
-        </p>
-        <span className="text-xs sm:text-sm">{task.description}</span>
+        <p className="text-xs font-semibold tracking-wider">DESCRIPTION</p>
+        <span className="text-base">{task.description}</span>
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-xs sm:text-sm font-semibold tracking-wider">
-          PRIORITY
-        </p>
-        <span className="text-xs sm:text-sm">{task.priority}</span>
+        <p className="text-xs font-semibold tracking-wider">PRIORITY</p>
+        <span className="text-base">{task.priority}</span>
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-xs sm:text-sm font-semibold tracking-wider">LIST</p>
-        <span className="text-xs sm:text-sm">{task.list}</span>
+        <p className="text-xs font-semibold tracking-wider">LIST</p>
+        <span className="text-base">{task.list}</span>
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-xs sm:text-sm font-semibold tracking-wider">TAG</p>
-        <span className="text-xs sm:text-sm">{task.tag}</span>
+        <p className="text-xs font-semibold tracking-wider">TAG</p>
+        <span className="text-base">{task.tag}</span>
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-xs sm:text-sm font-semibold tracking-wider">DATE</p>
-        <span className="text-xs sm:text-sm">
+        <p className="text-xs font-semibold tracking-wider">DATE</p>
+        <span className="text-base">
           {format(new Date(task.due_date), "MMMM do, HH:mm")}
         </span>
       </div>
@@ -108,7 +102,10 @@ function TaskCard({ task, handleStatusChange }) {
         <button onClick={() => handleEditClick(task._id)}>
           <GrFormEdit />
         </button>
-        <button onClick={() => handleStatusChange(task._id)}>
+        <button
+          className="hover:text-green-900"
+          onClick={() => handleStatusChange(task._id)}
+        >
           <IoCheckmarkDoneCircleOutline />
         </button>
       </div>

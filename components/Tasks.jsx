@@ -123,11 +123,11 @@ function Tasks() {
     <Spinner />
   ) : (
     <section className="flex flex-col min-h-screen px-4 w-full">
-      <div className=" flex-grow container-xl lg:container m-auto">
+      <div className="grow m-auto">
         {displayedTasks.length === 0 ? (
           <p>No tasks found</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
+          <div className="grid grid-cols-1 min-[1350px]:grid-cols-4 min-[1100px]:grid-cols-3 min-[800px]:grid-cols-2 gap-4">
             <AddNew />
             {displayedTasks.map((task) => (
               <TaskCard

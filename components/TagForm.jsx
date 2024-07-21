@@ -30,7 +30,7 @@ function TagForm({ setShowTagForm, showTagForm }) {
         className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60"
         onClick={handleBackgroundClick}
       >
-        <div className="absolute inset top-52 right-[30rem] my-auto bg-emerald-100 px-4 py-4 rounded-2xl shadow-lg">
+        <div className="absolute inset my-auto bg-emerald-100 px-4 py-4 rounded-2xl shadow-lg">
           <button
             onClick={() => {
               setShowTagForm(false);
@@ -43,18 +43,28 @@ function TagForm({ setShowTagForm, showTagForm }) {
             method="POST"
             className="container flex flex-col text-center"
           >
-            <label htmlFor="name">Name</label>
+            <label
+              htmlFor="name"
+              className="block mb-3 font-bold text-gray-700"
+            >
+              Name
+            </label>
             <input
               id="name"
               type="text"
               name="name"
-              className="border rounded w-full py-2 px-3"
+              className="border rounded w-full py-2 px-3 mb-6"
               required
               value={fields.name}
               onChange={handleChange}
             />
 
-            <label htmlFor="color">Color</label>
+            <label
+              htmlFor="color"
+              className="block mb-3 font-bold text-gray-700"
+            >
+              Color
+            </label>
             <input
               id="color"
               name="color"
@@ -67,7 +77,7 @@ function TagForm({ setShowTagForm, showTagForm }) {
 
             <button
               type="submit"
-              className="bg-emerald-300 items-center py-2 px-4 rounded-lg font-bold hover:bg-emerald-400"
+              className="bg-emerald-300 text-gray-700 items-center py-2 px-4 rounded-lg font-bold hover:bg-emerald-400"
             >
               Add
             </button>

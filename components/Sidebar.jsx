@@ -315,7 +315,7 @@ function Sidebar() {
           onClick={() => setShowTagForm(!showTagForm)}
         >
           <MdAdd />
-          <span>Add Tag</span>
+          <span>Add New Tag</span>
         </button>
       </ul>
 

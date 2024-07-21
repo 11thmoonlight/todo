@@ -45,9 +45,7 @@ export const POST = async (request) => {
     const newTask = new Task(TaskData);
 
     await newTask.save();
-    return Response.redirect(
-      `${process.env.NEXTAUTH_URL}/tasks/${newTask._id}`
-    );
+    return Response.redirect(`${process.env.NEXTAUTH_URL}`);
   } catch (error) {
     console.log(error);
     return new Response("Failed to add task", { status: 500 });

@@ -71,7 +71,7 @@ function AddNewForm({ openForm, setOpenForm }) {
         className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60"
         onClick={handleBackgroundClick}
       >
-        <div className="absolute inset m-auto bg-emerald-100 px-8 py-8 w-1/4 rounded-2xl shadow-lg">
+        <div className="absolute inset m-auto bg-emerald-100 px-8 py-8 w-[370px] rounded-2xl shadow-lg">
           <button
             onClick={() => {
               setOpenForm(false);

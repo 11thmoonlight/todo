@@ -20,9 +20,8 @@ function Layout({ children }) {
         <body className="pt-3 px-3 bg-stone-50">
           <TaskFilterProvider>
             <div className="flex gap-4">
-              <div>
-                <Sidebar />
-              </div>
+              <Sidebar />
+
               <main className="flex-1">
                 <AuthProvider>{children}</AuthProvider>
               </main>

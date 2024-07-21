@@ -120,7 +120,7 @@ function TaskEditForm({ showTaskEditForm, setShowTaskEditForm, id }) {
         className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60"
         onClick={handleBackgroundClick}
       >
-        <div className="absolute inset m-auto bg-emerald-100 px-8 py-8 w-1/4 rounded-2xl shadow-lg">
+        <div className="absolute inset w-[370px] m-auto bg-emerald-100 px-8 py-8 rounded-2xl shadow-lg">
           <button
             onClick={() => {
               setShowTaskEditForm(false);

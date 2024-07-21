@@ -31,7 +31,7 @@ function ListForm({ showListForm, setShowListForm }) {
         className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60"
         onClick={handleBackgroundClick}
       >
-        <div className="absolute inset top-52 right-[30rem] my-auto bg-emerald-100 px-4 py-4 rounded-2xl shadow-lg">
+        <div className="absolute inset my-auto bg-emerald-100 px-4 py-4 rounded-2xl shadow-lg">
           <button
             onClick={() => {
               setShowListForm(false);
@@ -60,7 +60,10 @@ function ListForm({ showListForm, setShowListForm }) {
               onChange={handleChange}
             />
 
-            <label htmlFor="color" className="block mb-3 font-bold">
+            <label
+              htmlFor="color"
+              className="block mb-3 font-bold text-gray-600"
+            >
               Color
             </label>
             <input
@@ -74,7 +77,7 @@ function ListForm({ showListForm, setShowListForm }) {
             />
             <button
               type="submit"
-              className="bg-emerald-300 items-center py-2 px-4 rounded-lg font-bold hover:bg-emerald-400"
+              className="bg-emerald-300 items-center py-2 px-4 rounded-lg font-bold text-gray-600 hover:bg-emerald-400"
             >
               Add
             </button>

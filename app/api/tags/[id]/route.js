@@ -39,7 +39,7 @@ export const POST = async (request) => {
 
     await newTag.save();
 
-    return Response.redirect(`${process.env.NEXTAUTH_URL}/tags/${newTag._id}`);
+    return Response.redirect(`${process.env.NEXTAUTH_URL}`);
   } catch (error) {
     console.log(error);
     return new Response("Failed to add task", { status: 500 });
